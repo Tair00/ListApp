@@ -11,3 +11,4 @@ This is a shopping list application developed as part of teaching the Kotlin pro
 ## Technologies Used
 
 - Kotlin
+- XML
