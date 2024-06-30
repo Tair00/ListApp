@@ -6,9 +6,16 @@ import com.example.shoppinglist.domain.ShopItem
 import com.example.shoppinglist.domain.ShopListRepository
 
 object ShopListRepositoryImpl: ShopListRepository {
-    private val shopList = mutableListOf<ShopItem>()
+    private val shopList = sortedSetOf<ShopItem>({ p0, p1 -> p0.id.compareTo(p1.id) })
     private var autoIncrementId = 0
     private val shopListLD = MutableLiveData<List<ShopItem>>()
+    init {
+        for (i in 0 until 20)
+        {
+            val item = ShopItem( "Name $i", i, true)
+            addShopItem(item)
+        }
+    }
     override fun deleteShopItem(shopItem: ShopItem) {
         shopList.add(shopItem)
     }
