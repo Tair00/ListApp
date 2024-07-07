@@ -1,5 +1,7 @@
 package com.example.shoppinglist.presentation
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.shoppinglist.data.ShopListRepositoryImpl
 import com.example.shoppinglist.domain.AddShopItemUseCase
@@ -14,9 +16,23 @@ class ShopItemViewModel: ViewModel() {
     private val getShopItemUseCase = GetShopItemUseCase(repository)
     private val addShopItemUseCase = AddShopItemUseCase(repository)
     private val editShopItemUseCase = EditShopItemUseCase(repository)
+    private val _errorInputName = MutableLiveData<Boolean>()
+    private val _shopItem = MutableLiveData<ShopItem>()
+    private val _shouldClouseScreen = MutableLiveData<Unit> ()
+    val shouldClouseScreen: LiveData<Unit>
+        get() = _shouldClouseScreen
+    public val shopItem : LiveData<ShopItem>
+        get() = _shopItem
+    val errorInputName: LiveData<Boolean>
+        get() = _errorInputName
+
+    private val _errorInputCount = MutableLiveData<Boolean>()
+    val errorInputCount: LiveData<Boolean>
+        get() = _errorInputCount
 
     fun getShopItem(shopItemId: Int){
         val item = getShopItemUseCase.getShopItem(shopItemId)
+        _shopItem.value = item
     }
     fun addShopItem(inputName: String? , inputCount: String? ){
         val name = parseName(inputName)
@@ -26,6 +42,7 @@ class ShopItemViewModel: ViewModel() {
         if (fieldsValid) {
             val shopItem = ShopItem(name,count,true)
             addShopItemUseCase.addShopItem(shopItem)
+            finishWork()
         }
     }
     fun editShopItem(inputName: String? , inputCount: String? ){
@@ -33,8 +50,11 @@ class ShopItemViewModel: ViewModel() {
         val count = parseCount(inputCount)
         val fieldsValid = validateInput(name, count)
         if (fieldsValid) {
-            val shopItem = ShopItem(name,count,true)
-            editShopItemUseCase.editShopItem(shopItem)
+            _shopItem.value?.let {
+                val item = it.copy(name =name, count = count)
+                editShopItemUseCase.editShopItem(item)
+                finishWork()
+            }
         }
     }
     private fun parseCount(inputCount: String?): Int{
@@ -51,10 +71,26 @@ class ShopItemViewModel: ViewModel() {
         var result =true
         if (name.isBlank()){
             result = false
+            _errorInputName.value = true
         }
         if (count<= 0 ){
+
+            _errorInputCount.value = true
             result = false
         }
         return result
+    }
+
+
+    private fun resetErrorInputName(){
+        _errorInputName.value = false
+
+    }
+    private fun resetErrorInputCount(){
+        _errorInputCount.value = false
+
+    }
+    private fun finishWork(){
+        _shouldClouseScreen.value = Unit
     }
 }
