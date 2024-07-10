@@ -82,15 +82,15 @@ class ShopItemViewModel: ViewModel() {
     }
 
 
-    private fun resetErrorInputName(){
+    fun resetErrorInputName(){
         _errorInputName.value = false
 
     }
-    private fun resetErrorInputCount(){
+     fun resetErrorInputCount(){
         _errorInputCount.value = false
 
     }
-    private fun finishWork(){
+     fun finishWork(){
         _shouldClouseScreen.value = Unit
     }
 }
