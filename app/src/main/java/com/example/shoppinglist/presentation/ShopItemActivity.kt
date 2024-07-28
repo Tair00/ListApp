@@ -19,7 +19,7 @@ import com.example.shoppinglist.domain.ShopItem
 import com.google.android.material.textfield.TextInputLayout
 
 class ShopItemActivity : AppCompatActivity() {
-//    private lateinit var viewModel: ShopItemViewModel
+    //    private lateinit var viewModel: ShopItemViewModel
 //    private lateinit var tilName: TextInputLayout
 //    private lateinit var tilCount: TextInputLayout
 //    private lateinit var etName: EditText
@@ -63,8 +63,8 @@ class ShopItemActivity : AppCompatActivity() {
 //        }
 //        viewModel.shouldClouseScreen.observe(this){
 //            finish()
-        }
 //    }
+        }
 //    private fun addTextChangeListeners(){
 //        etName.addTextChangedListener(object :TextWatcher{
 //            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
