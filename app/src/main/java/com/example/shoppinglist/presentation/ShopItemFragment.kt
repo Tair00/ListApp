@@ -135,8 +135,14 @@ class ShopItemFragment(
         private const val MODE_EDIT = "mode_edit"
         private const val MODE_ADD = "mode_add"
         private const val MODE_UNKNOWN = ""
+        fun newInstanceAddItem(): ShopItemFragment{
+            return ShopItemFragment(MODE_ADD)
+        }
+        fun newInstanceEditItem(shopItemId: Int): ShopItemFragment{
+            return ShopItemFragment(MODE_EDIT,shopItemId)
+        }
 
-        fun newInstanceEditItem(shopItemId: Int): ShopItemFragment {
+        fun newIntentEditItem(shopItemId: Int): ShopItemFragment {
             val fragment = ShopItemFragment()
             val args = Bundle().apply {
                 putString(EXTRA_SCREEN_MODE, MODE_EDIT)
@@ -146,7 +152,7 @@ class ShopItemFragment(
             return fragment
         }
 
-        fun newInstanceAddItem(): ShopItemFragment {
+        fun newIntentAddItem(): ShopItemFragment {
             val fragment = ShopItemFragment()
             val args = Bundle().apply {
                 putString(EXTRA_SCREEN_MODE, MODE_ADD)
