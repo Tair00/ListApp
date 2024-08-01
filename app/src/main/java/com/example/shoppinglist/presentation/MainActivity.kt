@@ -40,8 +40,10 @@ class MainActivity : AppCompatActivity() {
         return shopItemContainer == null
     }
     private  fun launchFragment(fragment: Fragment){
+        supportFragmentManager.popBackStack()
         supportFragmentManager.beginTransaction()
             .add(R.id.shop_item_container, fragment)
+            .addToBackStack(null)
             .commit()
 
     }
