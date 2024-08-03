@@ -2,6 +2,7 @@ package com.example.shoppinglist.presentation
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainer
@@ -12,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppinglist.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedListener {
     private lateinit var viewModel: MainViewModel
     private lateinit var shopListAdapter: ShopListAdapter
     private var shopItemContainer: FragmentContainerView? = null
@@ -32,9 +33,14 @@ class MainActivity : AppCompatActivity() {
             val intent = ShopItemActivity.newIntentAddItem(this)
             startActivity(intent)
             }else{
+
                 launchFragment(ShopItemFragment.newInstanceAddItem())
             }
         }
+    }
+   override fun onEditingFinished(){
+       Toast.makeText(this@MainActivity,"Success",Toast.LENGTH_SHORT).show()
+       supportFragmentManager.popBackStack()
     }
     private fun isOnePaneMode(): Boolean{
         return shopItemContainer == null
