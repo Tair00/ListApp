@@ -1,4 +1,4 @@
-# ShoppingList
+# List
 This is a shopping list application developed as part of teaching the Kotlin programming language. Implements classic CRUD (Create, Read, Update, Delete) operations.
 
 ## Features
