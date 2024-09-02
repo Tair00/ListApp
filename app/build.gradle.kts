@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.databinding:databinding-common:8.6.0")
     val nav_version = "2.7.7"
 
     // Navigation
@@ -70,7 +71,7 @@ dependencies {
 
     implementation ("androidx.room:room-runtime:2.3.0")
     implementation ("androidx.room:room-ktx:2.3.0")
- 
+
 
     // Testing
     testImplementation("junit:junit:4.13.2")
