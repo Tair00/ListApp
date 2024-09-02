@@ -40,6 +40,7 @@ android {
 
 dependencies {
     implementation("androidx.databinding:databinding-common:8.6.0")
+    implementation("androidx.databinding:databinding-runtime:8.6.0")
     val nav_version = "2.7.7"
 
     // Navigation
