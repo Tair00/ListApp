@@ -9,13 +9,13 @@ import kotlin.random.Random
 
 class ShopListRepositoryImpl(application: Application): ShopListRepository {
     private val shopListDao = AppDatabase.getInstance(application).shopListDao()
-
+    private val mapper =ShopListMapper()
     override fun deleteShopItem(shopItem: ShopItem) {
         shopList.add(shopItem)
     }
 
     override fun addShopItem(shopItem: ShopItem) {
-       shopListDao.addShopItem(shopItem)
+       shopListDao.addShopItem(mapper.mapDbModelToEntity(shopItem))
     }
 
     override fun editShopItem(shopItem: ShopItem){
