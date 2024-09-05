@@ -8,19 +8,14 @@ import com.example.shoppinglist.domain.ShopListRepository
 import kotlin.random.Random
 
 class ShopListRepositoryImpl(application: Application): ShopListRepository {
-    private val shopList = sortedSetOf<ShopItem>({ p0, p1 -> p0.id.compareTo(p1.id) })
+    private val shopListDao = AppDatabase.getInstance(application).shopListDao()
 
     override fun deleteShopItem(shopItem: ShopItem) {
         shopList.add(shopItem)
     }
 
     override fun addShopItem(shopItem: ShopItem) {
-        if(shopItem.id == ShopItem.UNDEFINED_ID){
-            shopItem.id = autoIncrementId++
-        }
-        autoIncrementId ++
-        shopList.add(shopItem)
-        updateList()
+       shopListDao.addShopItem(shopItem)
     }
 
     override fun editShopItem(shopItem: ShopItem){
