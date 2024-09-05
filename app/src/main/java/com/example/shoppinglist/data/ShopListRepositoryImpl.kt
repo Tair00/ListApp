@@ -11,7 +11,7 @@ class ShopListRepositoryImpl(application: Application): ShopListRepository {
     private val shopListDao = AppDatabase.getInstance(application).shopListDao()
     private val mapper =ShopListMapper()
     override fun deleteShopItem(shopItem: ShopItem) {
-        shopList.add(shopItem)
+        shopListDao.deleteShopItem(shopItem.id)
     }
 
     override fun addShopItem(shopItem: ShopItem) {
