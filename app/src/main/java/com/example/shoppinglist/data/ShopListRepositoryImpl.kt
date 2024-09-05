@@ -15,26 +15,20 @@ class ShopListRepositoryImpl(application: Application): ShopListRepository {
     }
 
     override fun addShopItem(shopItem: ShopItem) {
-       shopListDao.addShopItem(mapper.mapDbModelToEntity(shopItem))
+       shopListDao.addShopItem(mapper.mapEntityToDbModel(shopItem))
     }
 
     override fun editShopItem(shopItem: ShopItem){
-        val oldElement = getShopItem(shopItem.id)
-        shopList.remove(oldElement)
-        addShopItem(shopItem)
+        shopListDao.addShopItem(mapper.mapEntityToDbModel(shopItem))
     }
 
     override fun getShopItem(shopItemId: Int): ShopItem {
-        return shopList.find{it.id == shopItemId
-        } ?: throw RuntimeException("Element with id $shopItemId not found")
+       val dbModel = shopListDao.getShopItem(shopItemId)
+        return mapper.mapDbModelToEntity(dbModel)
     }
 
-    override fun getShopList(): LiveData<List<ShopItem>> {
-        return shopListLD
-    }
+    override fun getShopList(): LiveData<List<ShopItem>> = shopListDao.getShopList()
 
-    private fun updateList(){
-     shopListLD.value = shopList.toList()
-    }
+
 
 }
