@@ -2,11 +2,11 @@ package com.example.shoppinglist.data
 
 
 import androidx.lifecycle.LiveData
-
+import androidx.lifecycle.map
 import com.example.shoppinglist.domain.ShopItem
 import com.example.shoppinglist.domain.ShopListRepository
-import androidx.lifecycle.*
 import javax.inject.Inject
+
 
 class ShopListRepositoryImpl @Inject constructor(
     private val shopListDao: ShopListDao,
@@ -30,5 +30,9 @@ class ShopListRepositoryImpl @Inject constructor(
         return mapper.mapDbModelToEntity(dbModel)
     }
 
-    override fun getShopList(): LiveData<List<ShopItem>> = Transformation.
+    override fun getShopList(): LiveData<List<ShopItem>> =
+        shopListDao.getShopList().map { dbModelList ->
+            mapper.mapListDbModelToListEntity(dbModelList)
+        }
+
 }
